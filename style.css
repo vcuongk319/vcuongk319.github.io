@@ -8,19 +8,17 @@
 }
 
 body {
-    background-color: #05070b; /* Màu nền tối sâu */
+    background-color: #05070b;
     color: #e2e8f0;
     font-family: 'Inter', sans-serif;
-    overflow-y: auto;   /* CHO PHÉP CUỘN DỌC: Để sau này thêm nội dung phía dưới */
-    overflow-x: hidden; /* KHÓA CUỘN NGANG TOÀN TRANG: Tránh vỡ giao diện hệ thống */
+    overflow-y: auto;   /* Cho phép cuộn dọc trang web sau này */
+    overflow-x: hidden; /* Khóa cuộn ngang toàn cục để tránh lỗi giao diện */
 }
 
-/* Định dạng font chữ nghệ thuật sử thi */
 h1, h2, .logo {
     font-family: 'Cinzel', serif;
 }
 
-/* Hào quang mờ ảo phía sau nền web tạo chiều sâu */
 .bg-glow {
     position: fixed;
     top: 50%;
@@ -57,7 +55,7 @@ h1, h2, .logo {
 }
 
 .logo span { 
-    color: #00ffcc; /* Điểm nhấn neon xanh của HoYoverse */
+    color: #00ffcc; 
 }
 
 nav a {
@@ -77,18 +75,18 @@ nav a:hover, nav a.active {
    3. CẤU TRÚC KHUNG ẢNH TRƯỢT NGANG ĐỘC LẬP
    ========================================== */
 .horizontal-scroll-container {
-    display: flex;            /* Xếp các section ảnh nằm ngang hàng nhau */
-    height: 100vh;            /* Chiếm trọn 1 đời màn hình đầu tiên */
+    display: flex;
+    height: 100vh;
     width: 100vw;
     align-items: center;
     padding-left: 6%;
     padding-right: 15%;
-    overflow-x: auto;         /* Cho phép khung này tự trượt ngang bên trong nó */
-    overflow-y: hidden;        /* Không cho nội dung bên trong trồi lên thụt xuống */
-    scroll-behavior: smooth;  /* Hiệu ứng trượt mượt mà khi tương tác */
+    overflow-x: auto;         /* Kích hoạt trượt ngang nội bộ */
+    overflow-y: hidden;        /* Chặn nội dung nhảy dọc */
+    scroll-behavior: smooth;
 }
 
-/* ẨN THANH CUỘN NGANG CỦA KHUNG ẢNH ĐỂ ĐẢM BẢO THẨM MỸ */
+/* Ẩn thanh cuộn mặc định nhem nhuốc dưới đáy */
 .horizontal-scroll-container::-webkit-scrollbar {
     display: none; 
 }
@@ -99,10 +97,9 @@ nav a:hover, nav a.active {
     align-items: center;
     justify-content: center;
     padding: 0 50px;
-    flex-shrink: 0; /* Ngăn trình duyệt bóp nghẹt kích thước của slide */
+    flex-shrink: 0;           /* Không cho trình duyệt tự bóp ảnh */
 }
 
-/* Slide chữ giới thiệu đầu trang */
 .intro-slide {
     width: 35vw;
     max-width: 500px;
@@ -145,7 +142,7 @@ nav a:hover, nav a.active {
    ========================================== */
 .art-wrapper {
     position: relative;
-    height: 65vh; /* Chiều cao cố định của khung tranh */
+    height: 65vh;
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0,0,0,0.5);
@@ -153,36 +150,22 @@ nav a:hover, nav a.active {
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Tỷ lệ khung hình khác nhau tạo nhịp điệu khi lật trang */
-.wide { 
-    aspect-ratio: 16 / 10; 
-}
-
-.portrait { 
-    height: 73vh; 
-    aspect-ratio: 3 / 4; 
-}
+.wide { aspect-ratio: 16 / 10; }
+.portrait { height: 73vh; aspect-ratio: 3 / 4; }
 
 .art-wrapper img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Tự động fill đầy khung, giữ nguyên tỉ lệ ảnh */
+    object-fit: cover;
     filter: grayscale(15%);
     transition: transform 0.6s ease, filter 0.6s ease;
 }
 
-/* Cấu trúc cho slide ghép đôi (Split Mode) */
-.split-mode {
-    gap: 40px;
-}
-
-.split-left, .split-right {
-    height: 60vh;
-    aspect-ratio: 3 / 4;
-}
+.split-mode { gap: 40px; }
+.split-left, .split-right { height: 60vh; aspect-ratio: 3 / 4; }
 
 /* ==========================================
-   5. HIỆU ỨNG HOVER & CAPTION CHỮ (CINEMATIC)
+   5. HIỆU ỨNG HOVER & CAPTION CHỮ
    ========================================== */
 .art-caption {
     position: absolute;
@@ -192,7 +175,7 @@ nav a:hover, nav a.active {
     padding: 30px;
     background: linear-gradient(to top, rgba(5,7,11,0.95) 0%, rgba(5,7,11,0) 100%);
     transform: translateY(20px);
-    opacity: 0; /* Ẩn chữ đi khi chưa hover */
+    opacity: 0;                /* Ẩn chữ đi */
     transition: transform 0.4s ease, opacity 0.4s ease;
     pointer-events: none;
 }
@@ -210,23 +193,22 @@ nav a:hover, nav a.active {
     font-weight: 300;
 }
 
-/* --- KÍCH HOẠT HIỆU ỨNG RE CHUỘT --- */
 .art-wrapper:hover {
-    transform: scale(1.02) translateY(-10px); /* Nhấc nhẹ khung ảnh lên */
+    transform: scale(1.02) translateY(-10px);
 }
 
 .art-wrapper:hover img {
-    filter: grayscale(0%); /* Trả lại màu gốc rực rỡ */
-    transform: scale(1.05); /* Phóng to ảnh nhẹ */
+    filter: grayscale(0%);
+    transform: scale(1.05);
 }
 
 .art-wrapper:hover .art-caption {
-    transform: translateY(0); /* Đẩy chữ trồi lên mượt mà */
-    opacity: 1; /* Hiện chữ */
+    transform: translateY(0);
+    opacity: 1;                 /* Hiện chữ khi di chuột vào */
 }
 
 /* ==========================================
-   6. CÁC NÚT MŨI TÊN ĐIỀU HƯỚNG CỐ ĐỊNH
+   6. CÁC NÚT MŨI TÊN ĐIỀU HƯỚNG CỐ ĐỊNH (FIXED BOX)
    ========================================== */
 .scroll-btn {
     position: fixed;
@@ -236,4 +218,49 @@ nav a:hover, nav a.active {
     height: 60px;
     background-color: rgba(15, 17, 26, 0.6);
     color: #ffffff;
-    border: 1px
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+/* Ép chặt vị trí 2 nút sang 2 bên rìa */
+.prev-btn { 
+    left: 30px !important; 
+    right: auto !important;
+}
+
+.next-btn { 
+    right: 30px !important; 
+    left: auto !important;
+}
+
+.scroll-btn:hover {
+    background-color: rgba(0, 255, 204, 0.15);
+    border-color: #00ffcc;
+    color: #00ffcc;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* ==========================================
+   7. CHI TIẾT PHỤ (ANIMATION & FOOTER)
+   ========================================== */
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+footer {
+    padding: 40px 6%;
+    font-size: 0.75rem;
+    color: #334155;
+    background-color: #05070b;
+    border-top: 1px solid rgba(255, 255, 255, 0.02);
+}
