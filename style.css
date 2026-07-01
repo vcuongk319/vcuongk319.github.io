@@ -249,3 +249,49 @@ footer {
 ::-webkit-scrollbar-thumb:hover {
     background: #00ffcc; /* Thanh cuộn sáng lên khi rê chuột vào */
 }
+/* ==========================================
+   7. NÚT ĐIỀU HƯỚNG SANG TRÁI / PHẢI
+   ========================================== */
+.scroll-btn {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background-color: rgba(15, 17, 26, 0.6); /* Nền tối trong suốt */
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%; /* Biến nút thành hình tròn */
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 99; /* Luôn nổi lên trên cùng của ảnh */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px); /* Hiệu ứng kính mờ kính mờ */
+    transition: all 0.3s ease;
+}
+
+/* Vị trí nút bên trái */
+.prev-btn {
+    left: 30px;
+}
+
+/* Vị trí nút bên phải */
+.next-btn {
+    right: 30px;
+}
+
+/* Hiệu ứng khi rê chuột vào nút bấm (Hover) */
+.scroll-btn:hover {
+    background-color: rgba(0, 255, 204, 0.15);
+    border-color: #00ffcc; /* Viền sáng xanh neon */
+    color: #00ffcc;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+    transform: translateY(-50%) scale(1.1); /* Phóng to nhẹ nút */
+}
+
+/* Ẩn bớt thanh cuộn dưới đáy nếu bạn muốn trang web sạch sẽ hơn */
+::-webkit-scrollbar {
+    height: 3px; /* Thu nhỏ thanh cuộn lại thành 1 đường chỉ mảnh */
+}
