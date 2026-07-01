@@ -27,7 +27,7 @@
                 <span class="tag">DIGITAL PAINTING</span>
                 <h1>PORTRAITS</h1>
                 <p>Một hành trình thị giác đi qua những thái cực đối lập — từ những hầm mỏ rực lửa công nghiệp đến những vùng đất huyền bí ngập tràn ma thuật.</p>
-                <div class="scroll-hint">Cuộn chuột hoặc gạt sang để khám phá →</div>
+                <div class="scroll-hint">Bấm mũi tên hoặc gạt ngang để khám phá →</div>
             </div>
         </section>
 
@@ -71,33 +71,26 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Portfolio. Kéo ngang hoặc lăn chuột để xem tiếp.</p>
+        <p>&copy; 2026 Portfolio. Sử dụng nút bấm để xem tiếp các tác phẩm.</p>
     </footer>
 
     <button class="scroll-btn prev-btn" id="slideLeft">&#10094;</button>
     <button class="scroll-btn next-btn" id="slideRight">&#10095;</button>
 
     <script>
+        const container = document.querySelector('.horizontal-scroll-container');
         const slideLeft = document.getElementById('slideLeft');
         const slideRight = document.getElementById('slideRight');
 
-        // Bấm nút phải -> Cuộn toàn bộ cửa sổ sang phải 600px mượt mà
+        // Bấm nút phải -> Chỉ cuộn cái container chứa ảnh sang phải
         slideRight.addEventListener('click', () => {
-            window.scrollBy({ left: 600, behavior: 'smooth' });
+            container.scrollBy({ left: 600, behavior: 'smooth' });
         });
 
-        // Bấm nút trái -> Cuộn toàn bộ cửa sổ sang trái 600px mượt mà
+        // Bấm nút trái -> Chỉ cuộn cái container chứa ảnh sang trái
         slideLeft.addEventListener('click', () => {
-            window.scrollBy({ left: -600, behavior: 'smooth' });
+            container.scrollBy({ left: -600, behavior: 'smooth' });
         });
-
-        // TÍNH NĂNG THÊM: Biến cử chỉ lăn con chuột dọc (Up/Down) thành cuộn ngang tự động
-        window.addEventListener('wheel', (e) => {
-            if (e.deltaY !== 0) {
-                e.preventDefault(); // Ngăn việc trang web cố cuộn dọc
-                window.scrollBy({ left: e.deltaY * 2, behavior: 'auto' });
-            }
-        }, { passive: false });
     </script>
 
 </body>
