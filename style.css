@@ -1,3 +1,6 @@
+/* ==========================================
+   1. KHỞI TẠO CƠ BẢN (RESET)
+   ========================================== */
 * {
     margin: 0;
     padding: 0;
@@ -5,19 +8,19 @@
 }
 
 body {
-    background-color: #05070b;
+    background-color: #05070b; /* Nền tối sâu kiểu cinematic */
     color: #e2e8f0;
     font-family: 'Inter', sans-serif;
-    overflow-y: hidden; /* Khóa cuộn dọc */
-    overflow-x: auto;   /* Bật cuộn ngang */
+    overflow-y: hidden; /* QUAN TRỌNG: Khóa cuộn dọc */
+    overflow-x: auto;   /* QUAN TRỌNG: Bật cuộn ngang */
 }
 
-/* Font chữ tiêu đề mang phong cách sử thi, cinematic */
+/* Định dạng font chữ nghệ thuật sử thi */
 h1, h2, .logo {
     font-family: 'Cinzel', serif;
 }
 
-/* Hiệu ứng hào quang mờ ảo phía sau nền web */
+/* Hào quang mờ ảo phía sau nền web tạo chiều sâu */
 .bg-glow {
     position: fixed;
     top: 50%;
@@ -30,7 +33,9 @@ h1, h2, .logo {
     pointer-events: none;
 }
 
-/* --- NAVBAR TỐI GIẢN --- */
+/* ==========================================
+   2. THANH ĐIỀU HƯỚNG (NAVBAR)
+   ========================================== */
 .navbar {
     position: fixed;
     top: 0;
@@ -50,7 +55,9 @@ h1, h2, .logo {
     font-weight: 700;
 }
 
-.logo span { color: #00ffcc; }
+.logo span { 
+    color: #00ffcc; /* Điểm nhấn neon xanh của HoYoverse */
+}
 
 nav a {
     color: #64748b;
@@ -61,13 +68,17 @@ nav a {
     transition: color 0.3s;
 }
 
-nav a:hover, nav a.active { color: #fff; }
+nav a:hover, nav a.active { 
+    color: #fff; 
+}
 
-/* --- KHUNG CUỘN NGANG CHÍNH --- */
+/* ==========================================
+   3. CẤU TRÚC CUỘN NGANG (HORIZONTAL LAYOUT)
+   ========================================== */
 .horizontal-scroll-container {
-    display: flex; /* Xếp các section nằm ngang hàng nhau */
+    display: flex; /* Xếp các phần tử thẳng hàng ngang */
     height: 100vh;
-    width: max-content; /* Tự động phình chiều rộng theo số lượng tác phẩm */
+    width: max-content; /* Chiều rộng tự động phình ra theo số lượng ảnh */
     align-items: center;
     padding-left: 6%;
     padding-right: 10%;
@@ -81,7 +92,7 @@ nav a:hover, nav a.active { color: #fff; }
     padding: 0 60px;
 }
 
-/* Slide giới thiệu đầu trang */
+/* Slide chữ giới thiệu đầu trang */
 .intro-slide {
     width: 35vw;
     max-width: 500px;
@@ -119,10 +130,12 @@ nav a:hover, nav a.active { color: #fff; }
     animation: pulse 2s infinite;
 }
 
-/* --- ĐỊNH DẠNG KHUNG HIỂN THỊ ẢNH --- */
+/* ==========================================
+   4. ĐỊNH DẠNG KHUNG ẢNH (ARTWORK WRAPPERS)
+   ========================================== */
 .art-wrapper {
     position: relative;
-    height: 65vh; /* Giữ chiều cao cố định để không bị lệch đội hình */
+    height: 65vh; /* Chiều cao cố định của khung tranh */
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0,0,0,0.5);
@@ -130,44 +143,55 @@ nav a:hover, nav a.active { color: #fff; }
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Các tỷ lệ khung hình khác nhau tạo sự nhịp điệu khi cuộn */
-.wide { aspect-ratio: 16 / 10; }
-.portrait { height: 75vh; aspect-ratio: 3 / 4; }
+/* Các tỷ lệ khung hình khác nhau tạo sự nhịp điệu giống sách artbook */
+.wide { 
+    aspect-ratio: 16 / 10; 
+}
+
+.portrait { 
+    height: 75vh; 
+    aspect-ratio: 3 / 4; 
+}
 
 .art-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(20%);
-    transition: transform 0.6s, filter 0.6s;
+    filter: grayscale(15%); /* Hơi giảm màu một chút khi chưa hover */
+    transition: transform 0.6s ease, filter 0.6s ease;
 }
 
-/* Slide dạng chia đôi (Split Mode) */
+/* Cấu trúc cho slide ghép đôi (Split Mode) */
 .split-mode {
     gap: 40px;
 }
+
 .split-left, .split-right {
     height: 60vh;
     aspect-ratio: 3 / 4;
 }
 
-/* --- HIỆU ỨNG TEXT VÀ CAPTION --- */
+/* ==========================================
+   5. HIỆU ỨNG HOVER & CAPTION CHỮ (CINEMATIC EFFECTS)
+   ========================================== */
 .art-caption {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     padding: 30px;
-    background: linear-gradient(to top, rgba(5,7,11,0.9) 0%, rgba(5,7,11,0) 100%);
+    background: linear-gradient(to top, rgba(5,7,11,0.95) 0%, rgba(5,7,11,0) 100%);
     transform: translateY(20px);
-    opacity: 0;
-    transition: transform 0.4s, opacity 0.4s;
+    opacity: 0; /* ẨN HOÀN TOÀN CHỮ KHI CHƯA RÊ CHUỘT VÀO */
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    pointer-events: none; /* Tránh cản trở chuột */
 }
 
 .art-caption h2 {
     font-size: 1.2rem;
     margin-bottom: 5px;
     letter-spacing: 1px;
+    color: #ffffff;
 }
 
 .art-caption p {
@@ -176,22 +200,24 @@ nav a:hover, nav a.active { color: #fff; }
     font-weight: 300;
 }
 
-/* Hover hiệu ứng điện ảnh */
+/* --- KÍCH HOẠT HIỆU ỨNG KHI RE CHUỘT VÀO KHUNG ẢNH --- */
 .art-wrapper:hover {
-    transform: scale(1.02) translateY(-10px);
+    transform: scale(1.02) translateY(-10px); /* Nhấc nhẹ khung ảnh lên */
 }
 
 .art-wrapper:hover img {
-    filter: grayscale(0%);
-    transform: scale(1.05);
+    filter: grayscale(0%); /* Lấy lại 100% màu sắc rực rỡ */
+    transform: scale(1.05); /* Phóng to ảnh nhẹ nhàng */
 }
 
 .art-wrapper:hover .art-caption {
-    transform: translateY(0);
-    opacity: 1;
+    transform: translateY(0); /* Trồi chữ lên mượt mà */
+    opacity: 1; /* HIỆN CHỮ */
 }
 
-/* Hiệu ứng chữ nhấp nháy chỉ dẫn */
+/* ==========================================
+   6. CÁC CHI TIẾT PHỤ & THANH CUỘN (SCROLLBAR & FOOTER)
+   ========================================== */
 @keyframes pulse {
     0%, 100% { opacity: 0.4; }
     50% { opacity: 1; }
@@ -206,17 +232,20 @@ footer {
     z-index: 10;
 }
 
-/* Thêm thanh cuộn ngang tinh tế hơn */
+/* Làm đẹp thanh cuộn ngang dưới đáy màn hình */
 ::-webkit-scrollbar {
-    height: 4px;
+    height: 5px;
 }
+
 ::-webkit-scrollbar-track {
     background: #05070b;
 }
+
 ::-webkit-scrollbar-thumb {
     background: #1e293b;
-    border-radius: 2px;
+    border-radius: 10px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-    background: #00ffcc;
+    background: #00ffcc; /* Thanh cuộn sáng lên khi rê chuột vào */
 }
