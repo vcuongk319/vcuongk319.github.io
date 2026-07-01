@@ -1,5 +1,5 @@
 /* ==========================================
-   1. KHỞI TẠO CƠ BẢN (RESET)
+   1. KHỞI TẠO CƠ BẢN (RESET & SETTINGS)
    ========================================== */
 * {
     margin: 0;
@@ -8,11 +8,11 @@
 }
 
 body {
-    background-color: #05070b; /* Nền tối sâu kiểu cinematic */
+    background-color: #05070b; /* Màu nền tối sâu */
     color: #e2e8f0;
     font-family: 'Inter', sans-serif;
-    overflow-y: hidden; /* QUAN TRỌNG: Khóa cuộn dọc */
-    overflow-x: auto;   /* QUAN TRỌNG: Bật cuộn ngang */
+    overflow-y: auto;   /* CHO PHÉP CUỘN DỌC: Để sau này thêm nội dung phía dưới */
+    overflow-x: hidden; /* KHÓA CUỘN NGANG TOÀN TRANG: Tránh vỡ giao diện hệ thống */
 }
 
 /* Định dạng font chữ nghệ thuật sử thi */
@@ -28,7 +28,7 @@ h1, h2, .logo {
     transform: translate(-50%, -50%);
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(0, 255, 204, 0.05) 0%, rgba(5, 7, 11, 0) 70%);
+    background: radial-gradient(circle, rgba(0, 255, 204, 0.04) 0%, rgba(5, 7, 11, 0) 70%);
     z-index: -1;
     pointer-events: none;
 }
@@ -46,7 +46,8 @@ h1, h2, .logo {
     align-items: center;
     padding: 30px 6%;
     z-index: 10;
-    background: linear-gradient(to bottom, #05070b 0%, rgba(5, 7, 11, 0) 100%);
+    background: linear-gradient(to bottom, #05070b 40%, rgba(5, 7, 11, 0) 100%);
+    backdrop-filter: blur(5px);
 }
 
 .logo {
@@ -73,15 +74,23 @@ nav a:hover, nav a.active {
 }
 
 /* ==========================================
-   3. CẤU TRÚC CUỘN NGANG (HORIZONTAL LAYOUT)
+   3. CẤU TRÚC KHUNG ẢNH TRƯỢT NGANG ĐỘC LẬP
    ========================================== */
 .horizontal-scroll-container {
-    display: flex; /* Xếp các phần tử thẳng hàng ngang */
-    height: 100vh;
-    width: max-content; /* Chiều rộng tự động phình ra theo số lượng ảnh */
+    display: flex;            /* Xếp các section ảnh nằm ngang hàng nhau */
+    height: 100vh;            /* Chiếm trọn 1 đời màn hình đầu tiên */
+    width: 100vw;
     align-items: center;
     padding-left: 6%;
-    padding-right: 10%;
+    padding-right: 15%;
+    overflow-x: auto;         /* Cho phép khung này tự trượt ngang bên trong nó */
+    overflow-y: hidden;        /* Không cho nội dung bên trong trồi lên thụt xuống */
+    scroll-behavior: smooth;  /* Hiệu ứng trượt mượt mà khi tương tác */
+}
+
+/* ẨN THANH CUỘN NGANG CỦA KHUNG ẢNH ĐỂ ĐẢM BẢO THẨM MỸ */
+.horizontal-scroll-container::-webkit-scrollbar {
+    display: none; 
 }
 
 .scroll-section {
@@ -89,7 +98,8 @@ nav a:hover, nav a.active {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 60px;
+    padding: 0 50px;
+    flex-shrink: 0; /* Ngăn trình duyệt bóp nghẹt kích thước của slide */
 }
 
 /* Slide chữ giới thiệu đầu trang */
@@ -143,21 +153,21 @@ nav a:hover, nav a.active {
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Các tỷ lệ khung hình khác nhau tạo sự nhịp điệu giống sách artbook */
+/* Tỷ lệ khung hình khác nhau tạo nhịp điệu khi lật trang */
 .wide { 
     aspect-ratio: 16 / 10; 
 }
 
 .portrait { 
-    height: 75vh; 
+    height: 73vh; 
     aspect-ratio: 3 / 4; 
 }
 
 .art-wrapper img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    filter: grayscale(15%); /* Hơi giảm màu một chút khi chưa hover */
+    object-fit: cover; /* Tự động fill đầy khung, giữ nguyên tỉ lệ ảnh */
+    filter: grayscale(15%);
     transition: transform 0.6s ease, filter 0.6s ease;
 }
 
@@ -172,7 +182,7 @@ nav a:hover, nav a.active {
 }
 
 /* ==========================================
-   5. HIỆU ỨNG HOVER & CAPTION CHỮ (CINEMATIC EFFECTS)
+   5. HIỆU ỨNG HOVER & CAPTION CHỮ (CINEMATIC)
    ========================================== */
 .art-caption {
     position: absolute;
@@ -182,9 +192,9 @@ nav a:hover, nav a.active {
     padding: 30px;
     background: linear-gradient(to top, rgba(5,7,11,0.95) 0%, rgba(5,7,11,0) 100%);
     transform: translateY(20px);
-    opacity: 0; /* ẨN HOÀN TOÀN CHỮ KHI CHƯA RÊ CHUỘT VÀO */
+    opacity: 0; /* Ẩn chữ đi khi chưa hover */
     transition: transform 0.4s ease, opacity 0.4s ease;
-    pointer-events: none; /* Tránh cản trở chuột */
+    pointer-events: none;
 }
 
 .art-caption h2 {
@@ -200,57 +210,23 @@ nav a:hover, nav a.active {
     font-weight: 300;
 }
 
-/* --- KÍCH HOẠT HIỆU ỨNG KHI RE CHUỘT VÀO KHUNG ẢNH --- */
+/* --- KÍCH HOẠT HIỆU ỨNG RE CHUỘT --- */
 .art-wrapper:hover {
     transform: scale(1.02) translateY(-10px); /* Nhấc nhẹ khung ảnh lên */
 }
 
 .art-wrapper:hover img {
-    filter: grayscale(0%); /* Lấy lại 100% màu sắc rực rỡ */
-    transform: scale(1.05); /* Phóng to ảnh nhẹ nhàng */
+    filter: grayscale(0%); /* Trả lại màu gốc rực rỡ */
+    transform: scale(1.05); /* Phóng to ảnh nhẹ */
 }
 
 .art-wrapper:hover .art-caption {
-    transform: translateY(0); /* Trồi chữ lên mượt mà */
-    opacity: 1; /* HIỆN CHỮ */
+    transform: translateY(0); /* Đẩy chữ trồi lên mượt mà */
+    opacity: 1; /* Hiện chữ */
 }
 
 /* ==========================================
-   6. CÁC CHI TIẾT PHỤ & THANH CUỘN (SCROLLBAR & FOOTER)
-   ========================================== */
-@keyframes pulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
-}
-
-footer {
-    position: fixed;
-    bottom: 20px;
-    left: 6%;
-    font-size: 0.75rem;
-    color: #334155;
-    z-index: 10;
-}
-
-/* Làm đẹp thanh cuộn ngang dưới đáy màn hình */
-::-webkit-scrollbar {
-    height: 5px;
-}
-
-::-webkit-scrollbar-track {
-    background: #05070b;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #1e293b;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #00ffcc; /* Thanh cuộn sáng lên khi rê chuột vào */
-}
-/* ==========================================
-   7. NÚT ĐIỀU HƯỚNG SANG TRÁI / PHẢI
+   6. CÁC NÚT MŨI TÊN ĐIỀU HƯỚNG CỐ ĐỊNH
    ========================================== */
 .scroll-btn {
     position: fixed;
@@ -258,40 +234,6 @@ footer {
     transform: translateY(-50%);
     width: 60px;
     height: 60px;
-    background-color: rgba(15, 17, 26, 0.6); /* Nền tối trong suốt */
+    background-color: rgba(15, 17, 26, 0.6);
     color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50%; /* Biến nút thành hình tròn */
-    font-size: 1.5rem;
-    cursor: pointer;
-    z-index: 99; /* Luôn nổi lên trên cùng của ảnh */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(5px); /* Hiệu ứng kính mờ kính mờ */
-    transition: all 0.3s ease;
-}
-
-/* Vị trí nút bên trái */
-.prev-btn {
-    left: 30px;
-}
-
-/* Vị trí nút bên phải */
-.next-btn {
-    right: 30px;
-}
-
-/* Hiệu ứng khi rê chuột vào nút bấm (Hover) */
-.scroll-btn:hover {
-    background-color: rgba(0, 255, 204, 0.15);
-    border-color: #00ffcc; /* Viền sáng xanh neon */
-    color: #00ffcc;
-    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
-    transform: translateY(-50%) scale(1.1); /* Phóng to nhẹ nút */
-}
-
-/* Ẩn bớt thanh cuộn dưới đáy nếu bạn muốn trang web sạch sẽ hơn */
-::-webkit-scrollbar {
-    height: 3px; /* Thu nhỏ thanh cuộn lại thành 1 đường chỉ mảnh */
-}
+    border: 1px
