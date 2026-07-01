@@ -73,6 +73,24 @@
     <footer>
         <p>&copy; 2026 Portfolio. Kéo ngang để xem tiếp.</p>
     </footer>
+    <button class="scroll-btn prev-btn" id="slideLeft">&#10094;</button>
+    <button class="scroll-btn next-btn" id="slideRight">&#10095;</button>
+
+    <script>
+        const container = document.querySelector('.horizontal-scroll-container');
+        const slideLeft = document.getElementById('slideLeft');
+        const slideRight = document.getElementById('slideRight');
+
+        // Bấm nút phải -> cuộn sang phải 500 pixel
+        slideRight.addEventListener('click', () => {
+            container.scrollBy({ left: 500, behavior: 'smooth' });
+        });
+
+        // Bấm nút trái -> cuộn sang trái 500 pixel
+        slideLeft.addEventListener('click', () => {
+            container.scrollBy({ left: -500, behavior: 'smooth' });
+        });
+    </script>
 
 </body>
 </html>
