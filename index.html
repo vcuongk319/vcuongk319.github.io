@@ -82,12 +82,12 @@
         const slideLeft = document.getElementById('slideLeft');
         const slideRight = document.getElementById('slideRight');
 
-        // Bấm nút phải -> Chỉ cuộn cái container chứa ảnh sang phải
+        // Bấm nút phải -> Cuộn khung ảnh sang phải
         slideRight.addEventListener('click', () => {
             container.scrollBy({ left: 600, behavior: 'smooth' });
         });
 
-        // Bấm nút trái -> Chỉ cuộn cái container chứa ảnh sang trái
+        // Bấm nút trái -> Cuộn khung ảnh sang trái
         slideLeft.addEventListener('click', () => {
             container.scrollBy({ left: -600, behavior: 'smooth' });
         });
